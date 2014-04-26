@@ -489,6 +489,7 @@ buffer_init(void)
 			_MFREE(sound_buffer[i]);
 		}
 		sound_buffer[i] = (char *)_MALLOC(opna_frame, "sound buffer");
+		memset(sound_buffer[i], 0, opna_frame);
 		if (sound_buffer[i] == NULL) {
 			g_printerr("buffer_init: can't alloc memory\n");
 			sounddrv_unlock();

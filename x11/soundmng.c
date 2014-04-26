@@ -212,11 +212,12 @@ soundmng_create(UINT rate, UINT bufmsec)
 		}
 	}
 
-	snddrv_setup();
-
 	samples = (rate * bufmsec) / 1000 / 2;
 	samples = calc_blocksize(samples);
 	opna_frame = samples * 2 * sizeof(SINT16);
+
+	buffer_init();
+	snddrv_setup();
 
 	if ((*snddrv.drvinit)(rate, samples) != SUCCESS) {
 		audio_fd = -1;
@@ -232,7 +233,6 @@ soundmng_create(UINT rate, UINT bufmsec)
 #endif
 
 	soundmng_setreverse(FALSE);
-	buffer_init();
 	soundmng_reset();
 
 	for (i = 0; i < SOUND_MAXPCM; i++) {

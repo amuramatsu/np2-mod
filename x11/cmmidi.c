@@ -181,12 +181,21 @@ static INLINE void
 midi_write(CMMIDI midi, const BYTE *cmd, UINT cnt)
 {
 	struct timeval ct;
+#ifdef HAVE_CLOCK_GETTIME
+	struct timespec ct_temp;
+#endif
 	int ds, du;
 	int rv;
 	UINT i;
 
 	for (;;) {
+#ifdef HAVE_CLOCK_GETTIME
+		clock_gettime(CLOCK_MONOTONIC, &ct_temp);
+		ct.tv_sec = ct_temp.tv_sec;
+		ct.tv_usec = ct_temp.tv_nsec / 1000;
+#else
 		gettimeofday(&ct, NULL);
+#endif
 		ds = ct.tv_sec - midi->hmidiout_nextstart.tv_sec;
 		if (ds > 0)
 			break;
@@ -201,7 +210,13 @@ midi_write(CMMIDI midi, const BYTE *cmd, UINT cnt)
 		} while (rv != 1);
 	}
 
+#ifdef HAVE_CLOCK_GETTIME
+	clock_gettime(CLOCK_MONOTONIC, &ct_temp);
+	midi->hmidiout_nextstart.tv_sec = ct_temp.tv_sec;
+	midi->hmidiout_nextstart.tv_usec = ct_temp.tv_nsec / 1000;
+#else
 	gettimeofday(&midi->hmidiout_nextstart, NULL);
+#endif
 	midi->hmidiout_nextstart.tv_usec += np2oscfg.MIDIWAIT * cnt;
 	if ((memcmp(cmd, EXCV_GMRESET, sizeof(EXCV_GMRESET)) == 0)
 	 || (memcmp(cmd, EXCV_GSRESET, sizeof(EXCV_GSRESET)) == 0)
@@ -222,11 +237,20 @@ static void
 waitlastexclusiveout(CMMIDI midi)
 {
 	struct timeval ct;
+#ifdef HAVE_CLOCK_GETTIME
+	struct timespec ct_temp;
+#endif
 	int ds, du;
 
 	if (midi->midiexcvwait) {
 		for (;;) {
+#ifdef HAVE_CLOCK_GETTIME
+			clock_gettime(CLOCK_MONOTONIC, &ct_temp);
+			ct.tv_sec = ct_temp.tv_sec;
+			ct.tv_usec = ct_temp.tv_nsec / 1000;
+#else
 			gettimeofday(&ct, NULL);
+#endif
 			ds = ct.tv_sec - midi->hmidiout_nextstart.tv_sec;
 			if (ds > 0)
 				break;
@@ -721,7 +745,14 @@ cmmidi_create(const char *midiout, const char *midiin, const char *module)
 	midi->midictrl = MIDICTRL_READY;
 	midi->hmidiout = hmidiout;
 	if (opened & CMMIDI_MIDIOUT) {
+#ifdef HAVE_CLOCK_GETTIME
+		struct timespec ct_temp;
+		clock_gettime(CLOCK_MONOTONIC, &ct_temp);
+		midi->hmidiout_nextstart.tv_sec = ct_temp.tv_sec;
+		midi->hmidiout_nextstart.tv_usec = ct_temp.tv_nsec / 1000;
+#else
 		gettimeofday(&midi->hmidiout_nextstart, NULL);
+#endif
 	}
 #if defined(VERMOUTH_LIB)
 	midi->vermouth = vermouth;

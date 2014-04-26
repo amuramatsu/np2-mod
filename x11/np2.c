@@ -146,10 +146,17 @@ int verbose = 0;
 UINT32
 gettick(void)
 {
+#ifdef HAVE_CLOCK_GETTIME
+	struct timespec tv;
+
+	clock_gettime(CLOCK_MONOTONIC, &tv);
+	return tv.tv_nsec / 1000000 + tv.tv_sec * 1000;
+#else
 	struct timeval tv;
 
 	gettimeofday(&tv, 0);
 	return tv.tv_usec / 1000 + tv.tv_sec * 1000;
+#endif
 }
 
 static void

@@ -238,7 +238,7 @@ UINT32 gettick(void);
 #define	SUPPORT_32BPP
 #define	SUPPORT_NORMALDISP
 
-#define	SOUND_CRITICAL
+#undef	SOUND_CRITICAL
 #undef	SOUNDRESERVE
 
 #define	SUPPORT_PC9861K

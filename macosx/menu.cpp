@@ -159,7 +159,7 @@ void menu_setjastsound(BYTE value) {
 
 	value &= 1;
 	np2oscfg.jastsnd = value;
-	CheckMenuItem(GetMenuRef(IDM_SOUND), IDM_JASTSOUND, MFCHECK(value));
+	CheckMenuItem(GetMenuRef(IDM_SOUND), (MenuItemIndex)IDM_JASTSOUND, MFCHECK(value));
 }
 
 void menu_setmotorflg(BYTE value) {
@@ -235,7 +235,7 @@ void menu_setmouse(BYTE value) {
 
 void menu_sets98logging(BYTE value) {
 
-	CheckMenuItem(GetMenuRef(IDM_OTHER), IDM_S98LOGGING, MFCHECK(value));
+	CheckMenuItem(GetMenuRef(IDM_OTHER), (MenuItemIndex)IDM_S98LOGGING, MFCHECK(value));
 }
 
 void menu_setrecording(bool end) {
@@ -244,10 +244,10 @@ void menu_setrecording(bool end) {
     
     ret = soundRec(end);
     if (ret == 1) {
-        CheckMenuItem(hmenu, IDM_RECORDING, true);
+        CheckMenuItem(hmenu, (MenuItemIndex)IDM_RECORDING, true);
     }
     else {
-        CheckMenuItem(hmenu, IDM_RECORDING, false);
+        CheckMenuItem(hmenu, (MenuItemIndex)IDM_RECORDING, false);
     }
 }
 
@@ -255,7 +255,7 @@ void menu_setmsrapid(BYTE value) {
 
 	value &= 1;
 	np2cfg.MOUSERAPID = value;
-	CheckMenuItem(GetMenuRef(IDM_OTHER), IDM_MSRAPID, MFCHECK(value));
+	CheckMenuItem(GetMenuRef(IDM_OTHER), (MenuItemIndex)IDM_MSRAPID, MFCHECK(value));
 }
 
 void menu_setkeydisp(BYTE value) {
@@ -263,7 +263,7 @@ void menu_setkeydisp(BYTE value) {
 #if defined(SUPPORT_KEYDISP)
 	value &= 1;
 	np2oscfg.keydisp = value;
-	CheckMenuItem(GetMenuRef(IDM_OTHER), IDM_KEYDISP, MFCHECK(value));
+	CheckMenuItem(GetMenuRef(IDM_OTHER), (MenuItemIndex)IDM_KEYDISP, MFCHECK(value));
 #endif
 }
 
@@ -272,6 +272,6 @@ void menu_setsoftwarekeyboard(BYTE value) {
 #if defined(SUPPORT_SOFTKBD)
 	value &= 1;
 	np2oscfg.softkey = value;
-	CheckMenuItem(GetMenuRef(IDM_OTHER), IDM_SOFTKBD, MFCHECK(value));
+	CheckMenuItem(GetMenuRef(IDM_OTHER), (MenuItemIndex)IDM_SOFTKBD, MFCHECK(value));
 #endif
 }

@@ -84,7 +84,9 @@ static pascal OSStatus cfWinproc(EventHandlerCallRef myHandler, EventRef event, 
 					renewal = 1;
 				}
                 val=getControlValue('sl/f', 0);
+#if 0
                 if (val != np2cfg.skiplight);
+#endif
 				if (renewal) {
 					pal_makeskiptable();
 				}

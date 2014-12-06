@@ -41,6 +41,7 @@
 #include	"keystat.h"
 #include	"subwind.h"
 #include	"macclnd.h"
+#include	<unistd.h>
 
 #define	NP2OPENING
 // #define	OPENING_WAIT	1500
@@ -179,15 +180,15 @@ static void MenuBarInit(void) {
 	InsertMenu(GetMenu(IDM_MEMORY), -1);
     ChangeMenuAttributes(GetMenuRef(IDM_EDIT), kMenuAttrAutoDisable, 0);
     DisableAllMenuItems(GetMenuHandle(IDM_EDIT));
-    SetMenuItemModifiers(GetMenuRef(IDM_FDD2), IDM_FDD2OPEN, kMenuShiftModifier);
-    SetMenuItemModifiers(GetMenuRef(IDM_FDD2), IDM_FDD2EJECT, kMenuShiftModifier);
-    SetMenuItemModifiers(GetMenuRef(IDM_SASI2), IDM_SASI2OPEN, kMenuShiftModifier);
+    SetMenuItemModifiers(GetMenuRef(IDM_FDD2), (MenuItemIndex)IDM_FDD2OPEN, kMenuShiftModifier);
+    SetMenuItemModifiers(GetMenuRef(IDM_FDD2), (MenuItemIndex)IDM_FDD2EJECT, kMenuShiftModifier);
+    SetMenuItemModifiers(GetMenuRef(IDM_SASI2), (MenuItemIndex)IDM_SASI2OPEN, kMenuShiftModifier);
 #ifndef SUPPORT_KEYDISP
-	DisableMenuItem(GetMenuRef(IDM_OTHER), IDM_KEYDISP);
+	DisableMenuItem(GetMenuRef(IDM_OTHER), (MenuItemIndex)IDM_KEYDISP);
 #endif
 #ifndef SUPPORT_SOFTKBD
-	SetMenuItemTextWithCFString(GetMenuRef(IDM_OTHER), IDM_SOFTKBD, CFSTR("please wait for 0.80"));
-	DisableMenuItem(GetMenuRef(IDM_OTHER), IDM_SOFTKBD);
+	SetMenuItemTextWithCFString(GetMenuRef(IDM_OTHER), (MenuItemIndex)IDM_SOFTKBD, CFSTR("please wait for 0.80"));
+	DisableMenuItem(GetMenuRef(IDM_OTHER), (MenuItemIndex)IDM_SOFTKBD);
 #endif
     if (np2oscfg.I286SAVE) {
         AppendMenuItemTextWithCFString(GetMenuRef(IDM_OTHER), CFCopyLocalizedString(CFSTR("i286 save"),"i286"), kMenuItemAttrIconDisabled, 0, 0);
@@ -196,9 +197,9 @@ static void MenuBarInit(void) {
 #if defined(SUPPORT_PC9821)
 	AppendMenuItemTextWithCFString(GetMenuRef(IDM_MEMORY), CFSTR("11.6MB"), kMenuItemAttrIconDisabled, 0, NULL);
 	AppendMenuItemTextWithCFString(GetMenuRef(IDM_MEMORY), CFSTR("13.6MB"), kMenuItemAttrIconDisabled, 0, NULL);
-	SetMenuItemTextWithCFString(GetMenuRef(IDM_HELP), IDM_NP2HELP, CFCopyLocalizedString(CFSTR("Help"), "Help"));
-	SetMenuItemTextWithCFString(GetMenuRef(IDM_APPLE), IDM_ABOUT, CFCopyLocalizedString(CFSTR("About"), "About"));
-	SetMenuItemTextWithCFString(GetMenuRef(IDM_OTHER), IDM_I286SAVE, CFCopyLocalizedString(CFSTR("i386 save"), "save"));
+	SetMenuItemTextWithCFString(GetMenuRef(IDM_HELP), (MenuItemIndex)IDM_NP2HELP, CFCopyLocalizedString(CFSTR("Help"), "Help"));
+	SetMenuItemTextWithCFString(GetMenuRef(IDM_APPLE), (MenuItemIndex)IDM_ABOUT, CFCopyLocalizedString(CFSTR("About"), "About"));
+	SetMenuItemTextWithCFString(GetMenuRef(IDM_OTHER), (MenuItemIndex)IDM_I286SAVE, CFCopyLocalizedString(CFSTR("i386 save"), "save"));
 #endif
 
 	if (!(np2cfg.fddequip & 1)) {
@@ -784,6 +785,9 @@ static void processwait(UINT waitcnt) {
 		timing_setcount(0);
 		framereset(waitcnt);
 	}
+	else {
+		usleep(1000); // 1ms wait
+	}
 	soundmng_sync();
 }
 
@@ -926,7 +930,9 @@ int main(int argc, char *argv[]) {
 #endif
 
 #ifdef OPENING_WAIT
-	while((GETTICK() - tick) < OPENING_WAIT);
+	while((GETTICK() - tick) < OPENING_WAIT) {
+		usleep(1000);
+	}
 #endif
 	pccore_reset();
 
@@ -1376,9 +1382,9 @@ static void toggleFullscreen(void) {
         np2oscfg.winy = bounds.top;
         DisposeWindow(hWndMain);
         BeginFullScreen(&bkfullscreen, 0, &w, &h, &hWndMain, NULL, fullScreenAllowEvents);	
-        DisableMenuItem(menu, IDM_ROLNORMAL);
-        DisableMenuItem(menu, IDM_ROLLEFT);
-        DisableMenuItem(menu, IDM_ROLRIGHT);
+        DisableMenuItem(menu, (MenuItemIndex)IDM_ROLNORMAL);
+        DisableMenuItem(menu, (MenuItemIndex)IDM_ROLLEFT);
+        DisableMenuItem(menu, (MenuItemIndex)IDM_ROLRIGHT);
         HideMenuBar();
         setUpCarbonEvent();
         if (!np2oscfg.MOUSE_SW) {
@@ -1397,9 +1403,9 @@ static void toggleFullscreen(void) {
             mousemng_disable(MOUSEPROC_SYSTEM);
             menu_setmouse(0);
         }
-        EnableMenuItem(menu, IDM_ROLNORMAL);
-        EnableMenuItem(menu, IDM_ROLLEFT);
-        EnableMenuItem(menu, IDM_ROLRIGHT);
+        EnableMenuItem(menu, (MenuItemIndex)IDM_ROLNORMAL);
+        EnableMenuItem(menu, (MenuItemIndex)IDM_ROLLEFT);
+        EnableMenuItem(menu, (MenuItemIndex)IDM_ROLRIGHT);
         ShowMenuBar();
         if (toolwin) {
             toolwin_open();

@@ -215,7 +215,7 @@ fsel_exit:
 	return(ret);
 }
 
-BOOL dialog_filewriteselect(OSType type, char *title, FSSpec *fsc, WindowRef parentWindow)
+BOOL dialog_filewriteselect(OSType type, const char *title, FSSpec *fsc, WindowRef parentWindow)
 {	
 	OSType				sign='SMil';
 	NavEventUPP			eventUPP;

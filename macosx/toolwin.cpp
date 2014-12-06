@@ -274,7 +274,7 @@ static void sellist(UINT drv) {
 	ControlRef	hwnd;
 	TOOLFDD	*fdd;
 	UINT	sel;
-    SInt16	selmenu;
+    MenuItemIndex selmenu;
 
 	if (drv >= FDDLIST_DRV) {
 		return;

@@ -57,7 +57,7 @@ AC_FUNC_MALLOC
 AC_FUNC_MEMCMP
 AC_FUNC_STAT
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([gettimeofday memset mkdir strcasecmp strdup strerror strtol])
+AC_CHECK_FUNCS([gettimeofday clock_gettime memset mkdir strcasecmp strdup strerror strtol])
 
 dnl
 dnl Checks for math library functions.

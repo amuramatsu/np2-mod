@@ -536,6 +536,7 @@
 			);
 			name = "¬´PROJECTNAME¬ª";
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		20286C2AFDCF999611CA2CEA /* Sources */ = {
 			isa = PBXGroup;

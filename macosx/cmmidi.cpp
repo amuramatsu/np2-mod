@@ -389,7 +389,7 @@ static UINT midiwrite(COMMNG self, BYTE data) {
 				{
 					BYTE work[3];
 					memcpy(work, midi->buffer, 2);
-					work[3] = 0;
+					work[2] = 0;
 					midi->outfn(midi, work);
 				}
 				midi->midictrl = MIDICTRL_READY;

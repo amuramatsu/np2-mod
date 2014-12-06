@@ -4,7 +4,11 @@
 #include	<stddef.h>
 
 #define	MACOS
+#if defined(__i386__)||defined(__x86_64__)
+#define	BYTESEX_LITTLE
+#else
 #define	BYTESEX_BIG
+#endif
 #define	OSLANG_SJIS
 #define	OSLINEBREAK_CR
 
@@ -75,7 +79,9 @@ typedef unsigned char	BYTE;
 // #define	SUPPORT_24BPP
 #define	SUPPORT_32BPP
 // #define SUPPORT_NORMALDISP
+#if !(defined(__i386__)||defined(__x86_64__))
 #define	MEMOPTIMIZE		1
+#endif
 
 #if defined(CPUCORE_IA32)
 #define	SUPPORT_CRT31KHZ
@@ -97,9 +103,18 @@ typedef unsigned char	BYTE;
 #if defined(CPUCORE_IA32)
 typedef SInt64			SINT64;
 typedef UInt64			UINT64;
+#ifndef FASTCALL
 #define FASTCALL
-#define CPUCALL
-#define MEMCALL
+#endif
+#define CPUCALL		FASTCALL
+#define MEMCALL		FASTCALL
+#define DMACCALL        FASTCALL
+#define IOOUTCALL       FASTCALL
+#define IOINPCALL       FASTCALL
+#define SOUNDCALL       FASTCALL
+#define VRAMCALL        FASTCALL
+#define SCRNCALL        FASTCALL
+#define VERMOUTHCL      FASTCALL
 #define	SUPPORT_PC9821
 #define	SUPPORT_CRT31KHZ
 #define IA32_PAGING_EACHSIZE

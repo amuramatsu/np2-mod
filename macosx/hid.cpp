@@ -9,6 +9,7 @@
 #include	"compiler.h"
 #include	"np2.h"
 #include	"hid.h"
+#include <IOKit/hid/IOHIDUsageTables.h>
 
 #define hasAxis 1
 
@@ -43,6 +44,16 @@ void hid_init(void) {
     
     HIDBuildDeviceList (0, 0);
     pHIDDevice = HIDGetFirstDevice ();
+    while (pHIDDevice != NULL) {
+        if (pHIDDevice->usagePage == kHIDPage_Game ||
+            (pHIDDevice->usagePage == kHIDPage_GenericDesktop &&
+             (pHIDDevice->usage == kHIDUsage_GD_Joystick ||
+              pHIDDevice->usage == kHIDUsage_GD_GamePad ||
+              pHIDDevice->usage == kHIDUsage_GD_MultiAxisController))) {
+            break;
+        }
+        pHIDDevice = HIDGetNextDevice (pHIDDevice);
+    }
     if (pHIDDevice==NULL) {
         np2oscfg.JOYPAD1 = 0;
         return;

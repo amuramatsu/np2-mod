@@ -53,7 +53,7 @@
 	typedef void (*IOHIDCallbackFunction)(void * target, unsigned long result, void* refcon, void * sender);
 #else
 	#include <IOKit/hid/IOHIDLib.h>
-#endif TARGET_RT_MAC_CFM
+#endif /* TARGET_RT_MAC_CFM */
 
 #include <stdio.h>
 
@@ -470,4 +470,4 @@ extern unsigned long HIDTransactionClear(pRecDevice pDevice);
 }
 #endif
 
-#endif // _HID_Utilities_External_h_
+#endif /* _HID_Utilities_External_h_ */

@@ -219,7 +219,7 @@ I286FN v30_popf(void) {						// 9D:	popf
 
 	I286_WORKCLOCK(5);
 	REGPOP0(I286_FLAG)
-	I286_FLAG |= 0xf000;
+	I286_FLAG |= 0xf002;
 	I286_OV = I286_FLAG & O_FLAG;
 	I286_FLAG &= (0xfff ^ O_FLAG);
 	I286_TRAP = ((I286_FLAG & 0x300) == 0x300);

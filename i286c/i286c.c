@@ -341,7 +341,7 @@ UINT8 BYTESZPF(UINT r) {
 	if (r & (~0xff)) {
 		TRACEOUT(("BYTESZPF bound error: %x", r));
 	}
-	return(iflags[r & 0xff]);
+	return(iflags[r & 0xff] | 0x02);
 }
 
 UINT8 BYTESZPCF(UINT r) {
@@ -349,7 +349,7 @@ UINT8 BYTESZPCF(UINT r) {
 	if (r & (~0x1ff)) {
 		TRACEOUT(("BYTESZPCF bound error: %x", r));
 	}
-	return(iflags[r & 0x1ff]);
+	return(iflags[r & 0x1ff] | 0x02);
 }
 
 UINT8 WORDSZPF(UINT32 r) {
@@ -367,7 +367,7 @@ UINT8 WORDSZPF(UINT32 r) {
 	if (f1 != f2) {
 		TRACEOUT(("word flag error: %.2x %.2x", f1, f2));
 	}
-	return(f1);
+	return(f1 | 0x02);
 }
 
 UINT8 WORDSZPCF(UINT32 r) {
@@ -389,7 +389,7 @@ UINT8 WORDSZPCF(UINT32 r) {
 	if (f1 != f2) {
 		TRACEOUT(("word flag error: %.2x %.2x", f1, f2));
 	}
-	return(f1);
+	return(f1 | 0x02);
 }
 #endif
 

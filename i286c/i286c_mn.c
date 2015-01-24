@@ -1819,7 +1819,9 @@ I286FN _wait(void) {						// 9B:	wait
 
 I286FN _pushf(void) {						// 9C:	pushf
 
-	REGPUSH(REAL_FLAGREG, 3)
+	/* 0x02 is undocumented, but needed for some application such as
+           Borland tlink */
+	REGPUSH(REAL_FLAGREG | 0x02, 3)
 }
 
 I286FN _popf(void) {						// 9D:	popf
@@ -1828,7 +1830,9 @@ I286FN _popf(void) {						// 9D:	popf
 
 	REGPOP0(flag)
 	I286_OV = flag & O_FLAG;
-	I286_FLAG = flag & (0xfff ^ O_FLAG);
+	/* 0x02 is undocumented, but needed for some application such as
+           Borland tlink */
+	I286_FLAG = (flag & (0xfff ^ O_FLAG)) | 0x02;
 	I286_TRAP = ((flag & 0x300) == 0x300);
 	I286_WORKCLOCK(5);
 #if defined(INTR_FAST)
@@ -1843,13 +1847,17 @@ I286FN _popf(void) {						// 9D:	popf
 I286FN _sahf(void) {						// 9E:	sahf
 
 	I286_WORKCLOCK(2);
-	I286_FLAGL = I286_AH;
+	/* 0x02 is undocumented, but needed for some application such as
+           Borland tlink */
+	I286_FLAGL = I286_AH | 0x02;
 }
 
 I286FN _lahf(void) {						// 9F:	lahf
 
 	I286_WORKCLOCK(2);
-	I286_AH = I286_FLAGL;
+	/* 0x02 is undocumented, but needed for some application such as
+           Borland tlink */
+	I286_AH = I286_FLAGL | 0x02;
 }
 
 I286FN _mov_al_m8(void) {					// A0:	mov		al, m8
@@ -2290,7 +2298,7 @@ I286FN _iret(void) {						// CF:	iret
 	REGPOP0(I286_CS)
 	REGPOP0(flag)
 	I286_OV = flag & O_FLAG;
-	I286_FLAG = flag & (0xfff ^ O_FLAG);
+	I286_FLAG = (flag & (0xfff ^ O_FLAG)) | 0x02;
 	I286_TRAP = ((flag & 0x300) == 0x300);
 	CS_BASE = I286_CS << 4;
 //	CS_BASE = SEGSELECT(I286_CS);

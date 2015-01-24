@@ -210,7 +210,7 @@ I286_0F _loadall286(void) {
 	I286_TR = LOADINTELWORD(mem + 0x816);			// ver0.73
 	tmp = LOADINTELWORD(mem + 0x818);
 	I286_OV = tmp & O_FLAG;
-	I286_FLAG = tmp & (0xfff ^ O_FLAG);
+	I286_FLAG = (tmp & (0xfff ^ O_FLAG)) | 0x02;
 	I286_TRAP = ((tmp & 0x300) == 0x300);
 	I286_IP = LOADINTELWORD(mem + 0x81a);
 	I286_LDTR = LOADINTELWORD(mem + 0x81c);			// ver0.73

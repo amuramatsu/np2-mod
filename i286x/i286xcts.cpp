@@ -309,6 +309,7 @@ loadall286:		I286CLOCK(195)
 				mov		ax, word ptr mem[0x0816]		// TR
 				mov		I286_TR, ax
 				mov		ax, word ptr mem[0x0818]		// flag
+				or		ax, 0002h
 				mov		I286_FLAG, ax
 				and		ah, 3
 				cmp		ah, 3

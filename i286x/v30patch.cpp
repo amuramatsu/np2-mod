@@ -263,7 +263,7 @@ I286 v30_popf(void) {							// 9D: popf
 				add		ecx, SS_BASE
 				call	i286_memoryread_w
 				add		I286_SP, 2
-				or		ah, 0f0h
+				or		ah, 0f2h
 				mov		I286_FLAG, ax
 				and		ah, 3
 				cmp		ah, 3

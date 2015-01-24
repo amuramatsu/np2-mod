@@ -2771,6 +2771,7 @@ I286 _pushf(void) {								// 9C: pushf
 				I286CLOCK(3)
 				mov		dx, I286_FLAG
 				and		dx, 0fffh
+				or		dx, 0002h
 				sub		I286_SP, 2
 				movzx	ecx, I286_SP
 				add		ecx, SS_BASE
@@ -2788,6 +2789,7 @@ I286 _popf(void) {								// 9D: popf
 				call	i286_memoryread_w
 				add		I286_SP, 2
 				and		ax, 0fffh
+				or		ax, 0002h
 				mov		I286_FLAG, ax
 				and		ah, 3
 				cmp		ah, 3
@@ -2815,6 +2817,7 @@ I286 _sahf(void) {								// 9E: sahf
 				GET_NEXTPRE1
 				I286CLOCK(2)
 				mov		al, I286_AH
+				or		al, 02h
 				mov		I286_FLAGL, al
 				ret
 		}
@@ -2826,6 +2829,7 @@ I286 _lahf(void) {								// 9F: lahf
 				GET_NEXTPRE1
 				I286CLOCK(2)
 				mov		al, I286_FLAGL
+				or		al, 02h
 				mov		I286_AH, al
 				ret
 		}
@@ -3722,6 +3726,7 @@ I286 _iret(void) {								// CF: iret
 				call	i286_memoryread_w
 				mov		I286_SP, bx
 				and		ah, 0fh
+				or		al, 02h
 				mov		I286_FLAG, ax
 				and		ah, 3
 				cmp		ah, 3

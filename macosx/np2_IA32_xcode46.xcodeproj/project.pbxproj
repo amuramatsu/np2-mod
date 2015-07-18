@@ -219,7 +219,6 @@
 		5920DDCD12FDDF5E00815277 /* resolve.c in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF23405DD686500DA3983 /* resolve.c */; };
 		5920DDCE12FDDF5E00815277 /* segments.c in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF23605DD686500DA3983 /* segments.c */; };
 		5920DDCF12FDDF5E00815277 /* task.c in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF23805DD686500DA3983 /* task.c */; };
-		5920DDD012FDDF5E00815277 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 96EBF23A05DD686500DA3983 /* memory.c */; };
 		5920DDD112FDDF5E00815277 /* keystat.c in Sources */ = {isa = PBXBuildFile; fileRef = 965751AE05E66EE8002889CD /* keystat.c */; };
 		5920DDD212FDDF5E00815277 /* np2info.c in Sources */ = {isa = PBXBuildFile; fileRef = 965751CD05E66FBF002889CD /* np2info.c */; };
 		5920DDD312FDDF5E00815277 /* cmmidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 968D8BC305F5229D00CFB890 /* cmmidi.cpp */; };
@@ -247,7 +246,10 @@
 		5920DDEA12FDDF5E00815277 /* libHIDUtilities_intel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 967C947A05591C6800000103 /* libHIDUtilities_intel.a */; };
 		5920DDEB12FDDF5E00815277 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968D8C7105F5274200CFB890 /* CoreMIDI.framework */; };
 		5920DDED12FDDF5E00815277 /* np2.r in Rez */ = {isa = PBXBuildFile; fileRef = 9603DE6D06CFE8C300012F11 /* np2.r */; };
+		59559E441B5A7E13008AEC8E /* cpumem.c in Sources */ = {isa = PBXBuildFile; fileRef = 59559E431B5A7E13008AEC8E /* cpumem.c */; };
 		5979DE6314DAE6A70046E6C6 /* fpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 5979DE6214DAE6A70046E6C6 /* fpu.c */; };
+		599E85591B5A88190072AAFC /* ideio.c in Sources */ = {isa = PBXBuildFile; fileRef = 599E85581B5A88190072AAFC /* ideio.c */; };
+		599E855B1B5A88470072AAFC /* atapicmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 599E855A1B5A88470072AAFC /* atapicmd.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -257,7 +259,10 @@
 		5920DDF212FDDF5E00815277 /* Info-np21.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-np21.plist"; sourceTree = "<group>"; };
 		5920DDF312FDDF5E00815277 /* Neko Project 21x.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neko Project 21x.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5920DDF712FDE01A00815277 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/np2.nib; sourceTree = "<group>"; };
+		59559E431B5A7E13008AEC8E /* cpumem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpumem.c; sourceTree = "<group>"; };
 		5979DE6214DAE6A70046E6C6 /* fpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fpu.c; sourceTree = "<group>"; };
+		599E85581B5A88190072AAFC /* ideio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ideio.c; sourceTree = "<group>"; };
+		599E855A1B5A88470072AAFC /* atapicmd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atapicmd.c; sourceTree = "<group>"; };
 		9603DE2C06CFCD4800012F11 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9603DE3406CFCDE000012F11 /* Japanese */ = {isa = PBXFileReference; fileEncoding = 4; languageSpecificationIdentifier = c; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9603DE3A06CFCE3B00012F11 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Japanese; path = Japanese.lproj/np2.nib; sourceTree = "<group>"; };
@@ -482,7 +487,6 @@
 		96EBF23405DD686500DA3983 /* resolve.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = resolve.c; sourceTree = "<group>"; };
 		96EBF23605DD686500DA3983 /* segments.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = segments.c; sourceTree = "<group>"; };
 		96EBF23805DD686500DA3983 /* task.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = task.c; sourceTree = "<group>"; };
-		96EBF23A05DD686500DA3983 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
 		96EDBDA90577A00600000133 /* cmndraw.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = cmndraw.c; sourceTree = "<group>"; };
 		96EDBDAB0577A00600000133 /* cmver.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = cmver.c; sourceTree = "<group>"; };
 		96EDBDAD0577A00600000133 /* dipswbmp.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = dipswbmp.c; sourceTree = "<group>"; };
@@ -648,6 +652,7 @@
 		967C9177055778CB00000103 /* cbus */ = {
 			isa = PBXGroup;
 			children = (
+				599E855A1B5A88470072AAFC /* atapicmd.c */,
 				967C9178055778CB00000103 /* amd98.c */,
 				967C917A055778CB00000103 /* board118.c */,
 				967C917C055778CB00000103 /* board14.c */,
@@ -657,6 +662,7 @@
 				967C9184055778CB00000103 /* boardx2.c */,
 				967C9186055778CB00000103 /* cbuscore.c */,
 				967C9188055778CB00000103 /* cs4231io.c */,
+				599E85581B5A88190072AAFC /* ideio.c */,
 				967C918A055778CB00000103 /* mpu98ii.c */,
 				967C918C055778CB00000103 /* pc9861k.c */,
 				967C918E055778CB00000103 /* pcm86io.c */,
@@ -883,7 +889,7 @@
 			children = (
 				96EBF1FE05DD686500DA3983 /* ia32 */,
 				96EBF1F805DD686400DA3983 /* cpucore.c */,
-				96EBF23A05DD686500DA3983 /* memory.c */,
+				59559E431B5A7E13008AEC8E /* cpumem.c */,
 			);
 			name = i386c;
 			path = ../i386c;
@@ -1272,7 +1278,6 @@
 				5920DDCD12FDDF5E00815277 /* resolve.c in Sources */,
 				5920DDCE12FDDF5E00815277 /* segments.c in Sources */,
 				5920DDCF12FDDF5E00815277 /* task.c in Sources */,
-				5920DDD012FDDF5E00815277 /* memory.c in Sources */,
 				5920DDD112FDDF5E00815277 /* keystat.c in Sources */,
 				5920DDD212FDDF5E00815277 /* np2info.c in Sources */,
 				5920DDD312FDDF5E00815277 /* cmmidi.cpp in Sources */,
@@ -1295,6 +1300,9 @@
 				5920DDE412FDDF5E00815277 /* sxsicd.c in Sources */,
 				5920DDE512FDDF5E00815277 /* sxsihdd.c in Sources */,
 				5979DE6314DAE6A70046E6C6 /* fpu.c in Sources */,
+				59559E441B5A7E13008AEC8E /* cpumem.c in Sources */,
+				599E85591B5A88190072AAFC /* ideio.c in Sources */,
+				599E855B1B5A88470072AAFC /* atapicmd.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

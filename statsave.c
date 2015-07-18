@@ -35,7 +35,7 @@
 
 #if defined(MACOS)
 #define	CRCONST		str_cr
-#elif defined(WIN32) || defined(X11) || defined(SLZAURUS)
+#elif defined(WIN32) || defined(X11)
 #define	CRCONST		str_lf
 #else
 #define	CRCONST		str_crlf
@@ -801,7 +801,7 @@ static int flagsave_fm(STFLAGH sfh, const SFENTRY *tbl) {
 	UINT	saveflg;
 	OPNKEY	opnkey;
 
-	switch(usesound) {
+	switch(g_usesound) {
 		case 0x01:
 			saveflg = FLAG_MG;
 			break;
@@ -849,9 +849,9 @@ static int flagsave_fm(STFLAGH sfh, const SFENTRY *tbl) {
 			break;
 	}
 
-	ret = statflag_write(sfh, &usesound, sizeof(usesound));
+	ret = statflag_write(sfh, &g_usesound, sizeof(g_usesound));
 	if (saveflg & FLAG_MG) {
-		ret |= statflag_write(sfh, &musicgen, sizeof(musicgen));
+		ret |= statflag_write(sfh, &g_musicgen, sizeof(g_musicgen));
 	}
 	if (saveflg & FLAG_FM1A) {
 		ret |= statflag_write(sfh, &fmtimer, sizeof(fmtimer));
@@ -891,10 +891,10 @@ static int flagload_fm(STFLAGH sfh, const SFENTRY *t) {
 	UINT	saveflg;
 	OPNKEY	opnkey;
 
-	ret = statflag_read(sfh, &usesound, sizeof(usesound));
-	fmboard_reset(&np2cfg, usesound);
+	ret = statflag_read(sfh, &g_usesound, sizeof(g_usesound));
+	fmboard_reset(&np2cfg, g_usesound);
 
-	switch(usesound) {
+	switch(g_usesound) {
 		case 0x01:
 			saveflg = FLAG_MG;
 			break;
@@ -943,7 +943,7 @@ static int flagload_fm(STFLAGH sfh, const SFENTRY *t) {
 	}
 
 	if (saveflg & FLAG_MG) {
-		ret |= statflag_read(sfh, &musicgen, sizeof(musicgen));
+		ret |= statflag_read(sfh, &g_musicgen, sizeof(g_musicgen));
 		board14_allkeymake();
 	}
 

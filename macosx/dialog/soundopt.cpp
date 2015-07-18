@@ -13,6 +13,7 @@
 #include	"sysmng.h"
 #include	"iocore.h"
 #include	"sound.h"
+#include    "tms3631.h"
 #include	"fmboard.h"
 #include	"dialogutils.h"
 #include	"hid.h"

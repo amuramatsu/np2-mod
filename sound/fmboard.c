@@ -23,12 +23,10 @@
 #include	"keystat.h"
 
 
-	UINT32		usesound;
+	UINT32		g_usesound;
 	OPN_T		opn;
 	AMD98		amd98;
-	MUSICGEN	musicgen;
 
-	_TMS3631	tms3631;
 	_FMTIMER	fmtimer;
 	_OPNGEN		opngen;
 	OPNCH		opnch[OPNCH_MAX];
@@ -156,10 +154,8 @@ void fmboard_reset(const NP2CFG *pConfig, UINT32 type) {
 	opn3.adpcmmask = (UINT8)~(0x1c);
 #endif	// defined(SUPPORT_PX)
 
-	ZeroMemory(&musicgen, sizeof(musicgen));
 	ZeroMemory(&amd98, sizeof(amd98));
 
-	tms3631_reset(&tms3631);
 	opngen_reset();
 	psggen_reset(&psg1);
 	psggen_reset(&psg2);
@@ -177,9 +173,12 @@ void fmboard_reset(const NP2CFG *pConfig, UINT32 type) {
 	pcm86_reset();
 	cs4231_reset();
 
-	switch(type) {
+	
+	board14_reset(pConfig, (type == 1) ? TRUE : FALSE);
+
+	switch (type)
+	{
 		case 0x01:
-			board14_reset(pConfig);
 			break;
 
 		case 0x02:
@@ -230,7 +229,7 @@ void fmboard_reset(const NP2CFG *pConfig, UINT32 type) {
 			type = 0;
 			break;
 	}
-	usesound = type;
+	g_usesound = type;
 	soundmng_setreverse(cross);
 	keydisp_setfmboard(type);
 	opngen_setVR(pConfig->spb_vrc, pConfig->spb_vrl);
@@ -238,7 +237,7 @@ void fmboard_reset(const NP2CFG *pConfig, UINT32 type) {
 
 void fmboard_bind(void) {
 
-	switch(usesound) {
+	switch(g_usesound) {
 		case 0x01:
 			board14_bind();
 			break;

@@ -83,7 +83,6 @@
 		5920DC0A12FDD8EE00815277 /* i286c_mn.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C91BD055778CB00000103 /* i286c_mn.c */; };
 		5920DC0B12FDD8EE00815277 /* i286c_rp.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C91BE055778CB00000103 /* i286c_rp.c */; };
 		5920DC0C12FDD8EE00815277 /* i286c_sf.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C91BF055778CB00000103 /* i286c_sf.c */; };
-		5920DC0D12FDD8EE00815277 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C91C1055778CB00000103 /* memory.c */; };
 		5920DC0E12FDD8EE00815277 /* v30patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C91C3055778CB00000103 /* v30patch.c */; };
 		5920DC0F12FDD8EE00815277 /* artic.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C91C6055778CB00000103 /* artic.c */; };
 		5920DC1012FDD8EE00815277 /* cgrom.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C91C8055778CB00000103 /* cgrom.c */; };
@@ -231,6 +230,7 @@
 		5920DC9F12FDD8EE00815277 /* libHIDUtilities_intel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 967C947A05591C6800000103 /* libHIDUtilities_intel.a */; };
 		5920DCA012FDD8EE00815277 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9668883E05EFDE2500C9A4EE /* CoreMIDI.framework */; };
 		5920DCA212FDD8EE00815277 /* np2.r in Rez */ = {isa = PBXBuildFile; fileRef = 9603DE7806CFEA9100012F11 /* np2.r */; };
+		595AB9C11B5A7A9400435079 /* cpumem.c in Sources */ = {isa = PBXBuildFile; fileRef = 595AB9C01B5A7A9400435079 /* cpumem.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -241,6 +241,7 @@
 		5920DCA812FDD8EE00815277 /* Neko Project IIx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neko Project IIx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5920DE2112FDE22C00815277 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5920DE2412FDE26D00815277 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/np2.nib; sourceTree = "<group>"; };
+		595AB9C01B5A7A9400435079 /* cpumem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpumem.c; sourceTree = "<group>"; };
 		9603DE7A06CFEA9800012F11 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rez; name = Japanese; path = Japanese.lproj/np2.r; sourceTree = SOURCE_ROOT; };
 		9603DE7B06CFEAB500012F11 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9603DEA206CFEC9800012F11 /* Japanese */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -327,7 +328,6 @@
 		967C91BD055778CB00000103 /* i286c_mn.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = i286c_mn.c; sourceTree = "<group>"; };
 		967C91BE055778CB00000103 /* i286c_rp.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = i286c_rp.c; sourceTree = "<group>"; };
 		967C91BF055778CB00000103 /* i286c_sf.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = i286c_sf.c; sourceTree = "<group>"; };
-		967C91C1055778CB00000103 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
 		967C91C3055778CB00000103 /* v30patch.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = v30patch.c; sourceTree = "<group>"; };
 		967C91C6055778CB00000103 /* artic.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = artic.c; sourceTree = "<group>"; };
 		967C91C8055778CB00000103 /* cgrom.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = cgrom.c; sourceTree = "<group>"; };
@@ -674,6 +674,7 @@
 		967C91AF055778CB00000103 /* i286c */ = {
 			isa = PBXGroup;
 			children = (
+				595AB9C01B5A7A9400435079 /* cpumem.c */,
 				967C91B5055778CB00000103 /* i286c.c */,
 				967C91B8055778CB00000103 /* i286c_0f.c */,
 				967C91B9055778CB00000103 /* i286c_8x.c */,
@@ -683,7 +684,6 @@
 				967C91BD055778CB00000103 /* i286c_mn.c */,
 				967C91BE055778CB00000103 /* i286c_rp.c */,
 				967C91BF055778CB00000103 /* i286c_sf.c */,
-				967C91C1055778CB00000103 /* memory.c */,
 				967C91C3055778CB00000103 /* v30patch.c */,
 			);
 			name = i286c;
@@ -1070,7 +1070,6 @@
 				5920DC0A12FDD8EE00815277 /* i286c_mn.c in Sources */,
 				5920DC0B12FDD8EE00815277 /* i286c_rp.c in Sources */,
 				5920DC0C12FDD8EE00815277 /* i286c_sf.c in Sources */,
-				5920DC0D12FDD8EE00815277 /* memory.c in Sources */,
 				5920DC0E12FDD8EE00815277 /* v30patch.c in Sources */,
 				5920DC0F12FDD8EE00815277 /* artic.c in Sources */,
 				5920DC1012FDD8EE00815277 /* cgrom.c in Sources */,
@@ -1212,6 +1211,7 @@
 				5920DC9812FDD8EE00815277 /* steptrap.c in Sources */,
 				5920DC9912FDD8EE00815277 /* sxsicd.c in Sources */,
 				5920DC9A12FDD8EE00815277 /* sxsihdd.c in Sources */,
+				595AB9C11B5A7A9400435079 /* cpumem.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

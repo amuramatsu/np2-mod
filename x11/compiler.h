@@ -80,7 +80,8 @@
 #include <unistd.h>
 
 #define	X11
-#define	OSLANG_EUC
+//#define	OSLANG_EUC
+#define	OSLANG_UTF8
 #define	OSLINEBREAK_LF
 
 #include <glib.h>
@@ -230,7 +231,12 @@ UINT32 gettick(void);
 #endif
 #endif
 
+#if defined(OSLANG_EUC)
 #define	SUPPORT_EUC
+#endif
+#if defined(OSLANG_UTF8)
+#define	SUPPORT_UTF8
+#endif
 
 #undef	SUPPORT_8BPP
 #define	SUPPORT_16BPP

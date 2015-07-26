@@ -223,15 +223,15 @@ static const UINT8 xkeyconv_misc[256] = {
 	/*	 f.3, f.4, f.5, f.6, f.7, f.8, f.9,f.10		; 0xc0 */
 		0x64,0x65,0x66,0x67,0x68,0x69,0x6a,0x6b,
 	/*	f.11,f.12,f.13,f.14,f.15,    ,    ,   		; 0xc8 */
-		0x73,  NC,  NC,  NC,  NC,  NC,  NC,  NC,
+		  NC,  NC,  NC,  NC,  NC,  NC,  NC,  NC,
 	/*	    ,    ,    ,    ,    ,    ,    ,    		; 0xd0 */
 		  NC,  NC,  NC,  NC,  NC,  NC,  NC,  NC,
 	/*	    ,    ,    ,    ,    ,    ,    ,   		; 0xd8 */
 		  NC,  NC,  NC,  NC,  NC,  NC,  NC,  NC,
 	/*	    ,SFTL,SFTR,CTLL,CTLR,CAPS,    ,METL		; 0xe0 */
-		  NC,0x70,0x70,0x74,0x74,0x71,  NC,0x51,
+		  NC,0x70,0x70,0x74,0x74,0x71,  NC,0x73,
 	/*	METR,ALTL,ALTR,    ,    ,    ,    ,    		; 0xe8 */
-		0x35,0x51,0x35,  NC,  NC,  NC,  NC,  NC,
+		0x35,0x73,0x35,  NC,  NC,  NC,  NC,  NC,
 	/*	    ,    ,    ,    ,    ,    ,    ,    		; 0xf0 */
 		  NC,  NC,  NC,  NC,  NC,  NC,  NC,  NC,
 	/*	    ,    ,    ,    ,    ,    ,    , DEL		; 0xf8 */

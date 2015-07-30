@@ -238,17 +238,20 @@ static GtkRadioActionEntry joykey_entries[] = {
 static const guint n_joykey_entries = G_N_ELEMENTS(joykey_entries);
 
 static GtkRadioActionEntry f11key_entries[] = {
-{ "f11none", NULL, "F11 = None",        NULL, NULL, 0 },
-{ "f11menu", NULL, "F11 = Menu toggle", NULL, NULL, 1 },
-{ "f11fscr", NULL, "F11 = Full Screen", NULL, NULL, 2 },
+{ "f11none",  NULL, "F11 = None",        NULL, NULL, 0 },
+{ "f11mouse", NULL, "F11 = Mouse",       NULL, NULL, 3 },
+{ "f11menu",  NULL, "F11 = Menu toggle", NULL, NULL, 1 },
+{ "f11fscr",  NULL, "F11 = Full Screen", NULL, NULL, 2 },
 };
 static const guint n_f11key_entries = G_N_ELEMENTS(f11key_entries);
 
 static GtkRadioActionEntry f12key_entries[] = {
-{ "f12mouse", NULL, "F12 = _Mouse",     NULL, NULL, 0 },
 { "f12copy",  NULL, "F12 = Co_py",      NULL, NULL, 1 },
 { "f12stop",  NULL, "F12 = S_top",      NULL, NULL, 2 },
 { "f12help",  NULL, "F12 = _Help",      NULL, NULL, 7 },
+{ "f12xfer",  NULL, "F12 = _XFER",      NULL, NULL, 9 },
+{ "f12nfer",  NULL, "F12 = _NFER",      NULL, NULL, 10 },
+{ "f12kana",  NULL, "F12 = _Kana",      NULL, NULL, 8 },
 { "f12equal", NULL, "F12 = tenkey [=]", NULL, NULL, 4 },
 { "f12comma", NULL, "F12 = tenkey [,]", NULL, NULL, 3 },
 };
@@ -424,13 +427,16 @@ static const gchar *ui_info =
 "    <menuitem action='xgrphkey'/>\n"
 "    <separator/>\n"
 "    <menuitem action='f11none'/>\n"
+"    <menuitem action='f11mouse'/>\n"
 "    <menuitem action='f11menu'/>\n"
 "    <menuitem action='f11fscr'/>\n"
 "    <separator/>\n"
-"    <menuitem action='f12mouse'/>\n"
 "    <menuitem action='f12copy'/>\n"
 "    <menuitem action='f12stop'/>\n"
 "    <menuitem action='f12help'/>\n"
+"    <menuitem action='f12xfer'/>\n"
+"    <menuitem action='f12nfer'/>\n"
+"    <menuitem action='f12kana'/>\n"
 "    <menuitem action='f12equal'/>\n"
 "    <menuitem action='f12comma'/>\n"
 "   </menu>\n"

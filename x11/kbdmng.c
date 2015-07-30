@@ -39,6 +39,9 @@ static const BYTE kbdmng_f12keys[] = {
 	0x76,	/* User1 */
 	0x77,	/* User2 */
 	0x3f,	/* Help */
+	0x72,   /* KANA */
+	0x35,   /* XFER */
+	0x51,   /* NFER */
 };
 
 BYTE
@@ -46,7 +49,7 @@ kbdmng_getf12key(void)
 {
 	int key;
 
-	key = np2oscfg.F12KEY - 1; /* 0 is Mouse mode */
+	key = np2oscfg.F12KEY - 1; /* 0 is None */
 	if (key >= 0 && key < NELEMENTS(kbdmng_f12keys))
 		return kbdmng_f12keys[key];
 	return KEYBOARD_KC_NC;

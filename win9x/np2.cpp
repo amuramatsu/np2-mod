@@ -16,8 +16,11 @@
 #include "strres.h"
 #include "parts.h"
 #include "np2.h"
+#include "misc\WndProc.h"
+#include "debuguty\viewer.h"
 #include "np2arg.h"
 #include "dosio.h"
+#include "misc\tstring.h"
 #include "commng.h"
 #include "joymng.h"
 #include "mousemng.h"
@@ -33,10 +36,10 @@
 #include "dialog.h"
 #include "cpucore.h"
 #include "pccore.h"
+#include "statsave.h"
 #include "iocore.h"
 #include "pc9861k.h"
 #include "mpu98ii.h"
-#include "bios.h"
 #include "scrndraw.h"
 #include "sound.h"
 #include "beep.h"
@@ -47,7 +50,6 @@
 #include "keystat.h"
 #include "debugsub.h"
 #include "subwind.h"
-#include "viewer.h"
 #if !defined(_WIN64)
 #include "cputype.h"
 #endif
@@ -120,18 +122,8 @@ static int messagebox(HWND hWnd, LPCTSTR lpcszText, UINT uType)
 {
 	LPCTSTR szCaption = np2oscfg.titles;
 
-	int nRet = 0;
-	if (HIWORD(lpcszText))
-	{
-		nRet = MessageBox(hWnd, lpcszText, szCaption, uType);
-	}
-	else
-	{
-		LPTSTR lpszText = lockstringresource(lpcszText);
-		nRet = MessageBox(hWnd, lpszText, szCaption, uType);
-		unlockstringresource(lpszText);
-	}
-	return nRet;
+	std::tstring rText(LoadTString(lpcszText));
+	return MessageBox(hWnd, rText.c_str(), szCaption, uType);
 }
 
 // ----
@@ -356,7 +348,6 @@ static int flagload(HWND hWnd, const OEMCHAR *ext, LPCTSTR title, BOOL force)
 	int		nID;
 	OEMCHAR	szPath[MAX_PATH];
 	OEMCHAR	szStat[1024];
-	TCHAR	szFormat[256];
 	TCHAR	szMessage[1024 + 256];
 
 	getstatfilename(szPath, ext, NELEMENTS(szPath));
@@ -371,8 +362,8 @@ static int flagload(HWND hWnd, const OEMCHAR *ext, LPCTSTR title, BOOL force)
 	}
 	else if ((!force) && (nRet & STATFLAG_DISKCHG))
 	{
-		loadstringresource(IDS_CONFIRM_RESUME, szFormat, NELEMENTS(szFormat));
-		wsprintf(szMessage, szFormat, szStat);
+		std::tstring rFormat(LoadTString(IDS_CONFIRM_RESUME));
+		wsprintf(szMessage, rFormat.c_str(), szStat);
 		nID = messagebox(hWnd, szMessage, MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 	if (nID == IDYES)
@@ -1097,7 +1088,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 					break;
 
 				case IDM_DEBUGUTY:
-					viewer_open(g_hInstance);
+					CDebugUtyView::New();
 					break;
 
 				case IDM_SCRNMUL4:
@@ -1396,7 +1387,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 				winuileave();
 			}
 			if (b) {
-				viewer_allclose();
+				CDebugUtyView::AllClose();
 				DestroyWindow(hWnd);
 			}
 			break;
@@ -1469,7 +1460,7 @@ static void framereset(UINT cnt) {
 	skbdwin_process();
 	mdbgwin_process();
 	toolwin_draw((UINT8)cnt);
-	viewer_allreload(FALSE);
+	CDebugUtyView::AllUpdate(false);
 	if (np2oscfg.DISPCLK & 3) {
 		if (sysmng_workclockrenewal()) {
 			sysmng_updatecaption(3);
@@ -1502,6 +1493,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 	BOOL		xrollkey;
 
 	_MEM_INIT();
+	CWndProc::Initialize(hInstance);
 
 	GetModuleFileName(NULL, modulefile, NELEMENTS(modulefile));
 	dosio_init();
@@ -1575,7 +1567,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 		kdispwin_initialize(g_hInstance);
 		skbdwin_initialize(g_hInstance);
 		mdbgwin_initialize(g_hInstance);
-		viewer_init(g_hInstance);
+		CDebugUtyView::Initialize(g_hInstance);
 	}
 
 	mousemng_initialize();
@@ -1708,7 +1700,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 			unloadextinst();
 			TRACETERM();
 			dosio_term();
-			viewer_term();
 			return(FALSE);
 		}
 	}
@@ -1856,8 +1847,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 	_MEM_USED("report.txt");
 	dosio_term();
 
-	viewer_term();													// ver0.30
-
 	return((int)msg.wParam);
 }
-

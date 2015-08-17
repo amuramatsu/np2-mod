@@ -99,9 +99,6 @@ typedef	guint16		UINT16;
 typedef	guint32		UINT32;
 typedef	guint64		UINT64;
 
-typedef	guint8		BYTE;
-typedef	gchar		TCHAR;
-
 typedef	gboolean	BOOL;
 
 #define PTR_TO_UINT32(p)	((UINT32)GPOINTER_TO_UINT(p))
@@ -172,7 +169,6 @@ UINT32 gettick(void);
 
 #define	OEMCHAR		gchar
 #define OEMTEXT(s)	s
-#define OEMNULLSTR	OEMTEXT("")
 #define	OEMSPRINTF	sprintf
 #define	OEMSTRLEN	strlen
 

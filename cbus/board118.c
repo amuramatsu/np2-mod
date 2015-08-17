@@ -7,13 +7,13 @@
 #include	"sound.h"
 #include	"fmboard.h"
 #include	"s98.h"
-
+#include "sound/soundrom.h"
 
 static void IOOUTCALL ymf_o188(UINT port, REG8 dat) {
 
-	opn.addr1l = dat;
-	opn.addr1h = 0;
-	opn.data1 = dat;
+	g_opn.addr1l = dat;
+	g_opn.addr1h = 0;
+	g_opn.data1 = dat;
 	(void)port;
 }
 
@@ -21,30 +21,29 @@ static void IOOUTCALL ymf_o18a(UINT port, REG8 dat) {
 
 	UINT	addr;
 
-	opn.data1 = dat;
-	if (opn.addr1h != 0) {
+	g_opn.data1 = dat;
+	if (g_opn.addr1h != 0) {
 		return;
 	}
 
-	addr = opn.addr1l;
+	addr = g_opn.addr1l;
 	S98_put(NORMAL2608, addr, dat);
+	g_opn.reg[addr] = dat;
 	if (addr < 0x10) {
-		if (addr != 0x0e) {
-			psggen_setreg(&psg1, addr, dat);
-		}
+		psggen_setreg(&g_psg1, addr, dat);
 	}
 	else {
 		if (addr < 0x20) {
-			rhythm_setreg(&rhythm, addr, dat);
+			rhythm_setreg(&g_rhythm, addr, dat);
 		}
 		else if (addr < 0x30) {
 			if (addr == 0x28) {
 				if ((dat & 0x0f) < 3) {
-					opngen_keyon(dat & 0x0f, dat);
+					opngen_keyon(&g_opngen, dat & 0x0f, dat);
 				}
 				else if (((dat & 0x0f) != 3) &&
 						((dat & 0x0f) < 7)) {
-					opngen_keyon((dat & 0x07) - 1, dat);
+					opngen_keyon(&g_opngen, (dat & 0x07) - 1, dat);
 				}
 			}
 			else {
@@ -52,19 +51,18 @@ static void IOOUTCALL ymf_o18a(UINT port, REG8 dat) {
 			}
 		}
 		else if (addr < 0xc0) {
-			opngen_setreg(0, addr, dat);
+			opngen_setreg(&g_opngen, 0, addr, dat);
 		}
-		opn.reg[addr] = dat;
 	}
 	(void)port;
 }
 
 static void IOOUTCALL ymf_o18c(UINT port, REG8 dat) {
 
-	if (opn.extend) {
-		opn.addr1l = dat;
-		opn.addr1h = 1;
-		opn.data1 = dat;
+	if (g_opn.extend) {
+		g_opn.addr1l = dat;
+		g_opn.addr1h = 1;
+		g_opn.data1 = dat;
 	}
 	(void)port;
 }
@@ -73,24 +71,24 @@ static void IOOUTCALL ymf_o18e(UINT port, REG8 dat) {
 
 	UINT	addr;
 
-	if (!opn.extend) {
+	if (!g_opn.extend) {
 		return;
 	}
-	opn.data1 = dat;
+	g_opn.data1 = dat;
 
-	if (opn.addr1h != 1) {
+	if (g_opn.addr1h != 1) {
 		return;
 	}
-	addr = opn.addr1l;
+	addr = g_opn.addr1l;
 	S98_put(EXTEND2608, addr, dat);
-	opn.reg[addr + 0x100] = dat;
+	g_opn.reg[addr + 0x100] = dat;
 	if (addr >= 0x30) {
-		opngen_setreg(3, addr, dat);
+		opngen_setreg(&g_opngen, 3, addr, dat);
 	}
 	else {
 		if (addr == 0x10) {
 			if (!(dat & 0x80)) {
-				opn.adpcmmask = ~(dat & 0x1c);
+				g_opn.adpcmmask = ~(dat & 0x1c);
 			}
 		}
 	}
@@ -100,33 +98,33 @@ static void IOOUTCALL ymf_o18e(UINT port, REG8 dat) {
 static REG8 IOINPCALL ymf_i188(UINT port) {
 
 	(void)port;
-	return(fmtimer.status);
+	return(g_fmtimer.status);
 }
 
 static REG8 IOINPCALL ymf_i18a(UINT port) {
 
 	UINT	addr;
 
-	if (opn.addr1h == 0) {
-		addr = opn.addr1l;
+	if (g_opn.addr1h == 0) {
+		addr = g_opn.addr1l;
 		if (addr == 0x0e) {
-			return(fmboard_getjoy(&psg1));
+			return(fmboard_getjoy(&g_psg1));
 		}
 		else if (addr < 0x10) {
-			return(psggen_getreg(&psg1, addr));
+			return g_opn.reg[addr];
 		}
 		else if (addr == 0xff) {
 			return(1);
 		}
 	}
 	(void)port;
-	return(opn.data1);
+	return(g_opn.data1);
 }
 
 static REG8 IOINPCALL ymf_i18c(UINT port) {
 
-	if (opn.extend) {
-		return(fmtimer.status & 3);
+	if (g_opn.extend) {
+		return(g_fmtimer.status & 3);
 	}
 	(void)port;
 	return(0xff);
@@ -134,15 +132,15 @@ static REG8 IOINPCALL ymf_i18c(UINT port) {
 
 static void extendchannel(REG8 enable) {
 
-	opn.extend = enable;
+	g_opn.extend = enable;
 	if (enable) {
-		opn.channels = 6;
-		opngen_setcfg(6, OPN_STEREO | 0x007);
+		g_opn.channels = 6;
+		opngen_setcfg(&g_opngen, 6, OPN_STEREO | 0x007);
 	}
 	else {
-		opn.channels = 3;
-		opngen_setcfg(3, OPN_MONORAL | 0x007);
-		rhythm_setreg(&rhythm, 0x10, 0xff);
+		g_opn.channels = 3;
+		opngen_setcfg(&g_opngen, 3, OPN_MONORAL | 0x007);
+		rhythm_setreg(&g_rhythm, 0x10, 0xff);
 	}
 }
 
@@ -172,7 +170,7 @@ static const IOINP ymf_i[4] = {
 void board118_reset(const NP2CFG *pConfig) {
 
 	fmtimer_reset(0xc0);
-	opngen_setcfg(3, OPN_STEREO | 0x038);
+	opngen_setcfg(&g_opngen, 3, OPN_STEREO | 0x038);
 	cs4231io_reset();
 	soundrom_load(0xcc000, OEMTEXT("118"));
 	fmboard_extreg(extendchannel);
@@ -182,13 +180,13 @@ void board118_reset(const NP2CFG *pConfig) {
 
 void board118_bind(void) {
 
-	fmboard_fmrestore(0, 0);
-	fmboard_fmrestore(3, 1);
-	psggen_restore(&psg1);
-	fmboard_rhyrestore(&rhythm, 0);
-	sound_streamregist(&opngen, (SOUNDCB)opngen_getpcm);
-	sound_streamregist(&psg1, (SOUNDCB)psggen_getpcm);
-	rhythm_bind(&rhythm);
+	fmboard_fmrestore(&g_opn, 0, 0);
+	fmboard_fmrestore(&g_opn, 3, 1);
+	fmboard_psgrestore(&g_opn, &g_psg1, 0);
+	fmboard_rhyrestore(&g_opn, &g_rhythm, 0);
+	sound_streamregist(&g_opngen, (SOUNDCB)opngen_getpcm);
+	sound_streamregist(&g_psg1, (SOUNDCB)psggen_getpcm);
+	rhythm_bind(&g_rhythm);
 	cs4231io_bind();
 	cbuscore_attachsndex(0x188, ymf_o, ymf_i);
 	iocore_attachout(0xa460, ymf_oa460);

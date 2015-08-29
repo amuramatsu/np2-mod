@@ -335,8 +335,7 @@ void dialog_writebmp(void) {
 
 	SCRNSAVE bmp;
 	char	path[MAX_PATH];
-	FILEH	fh;
-    FSSpec	fss;
+	FSSpec	fss;
 
 	bmp = scrnsave_create();
 	if (bmp) {

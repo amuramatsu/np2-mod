@@ -171,7 +171,6 @@
 		5920DC6312FDD8EE00815277 /* maketext.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C92AD055778CC00000103 /* maketext.c */; };
 		5920DC6412FDD8EE00815277 /* maketgrp.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C92AF055778CC00000103 /* maketgrp.c */; };
 		5920DC6512FDD8EE00815277 /* palettes.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C92B1055778CC00000103 /* palettes.c */; };
-		5920DC6612FDD8EE00815277 /* scrnbmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C92B3055778CC00000103 /* scrnbmp.c */; };
 		5920DC6712FDD8EE00815277 /* scrndraw.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C92B5055778CC00000103 /* scrndraw.c */; };
 		5920DC6812FDD8EE00815277 /* sdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C92B7055778CC00000103 /* sdraw.c */; };
 		5920DC6912FDD8EE00815277 /* vram.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C92BA055778CC00000103 /* vram.c */; };
@@ -231,6 +230,8 @@
 		5920DCA012FDD8EE00815277 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9668883E05EFDE2500C9A4EE /* CoreMIDI.framework */; };
 		5920DCA212FDD8EE00815277 /* np2.r in Rez */ = {isa = PBXBuildFile; fileRef = 9603DE7806CFEA9100012F11 /* np2.r */; };
 		595AB9C11B5A7A9400435079 /* cpumem.c in Sources */ = {isa = PBXBuildFile; fileRef = 595AB9C01B5A7A9400435079 /* cpumem.c */; };
+		59BAD9391B91D5B400ACF523 /* scrnsave.c in Sources */ = {isa = PBXBuildFile; fileRef = 59BAD9381B91D5B400ACF523 /* scrnsave.c */; };
+		59BAD93B1B91D61300ACF523 /* pcmmix.c in Sources */ = {isa = PBXBuildFile; fileRef = 59BAD93A1B91D61300ACF523 /* pcmmix.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -242,6 +243,8 @@
 		5920DE2112FDE22C00815277 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5920DE2412FDE26D00815277 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/np2.nib; sourceTree = "<group>"; };
 		595AB9C01B5A7A9400435079 /* cpumem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpumem.c; sourceTree = "<group>"; };
+		59BAD9381B91D5B400ACF523 /* scrnsave.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scrnsave.c; sourceTree = "<group>"; };
+		59BAD93A1B91D61300ACF523 /* pcmmix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pcmmix.c; sourceTree = "<group>"; };
 		9603DE7A06CFEA9800012F11 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rez; name = Japanese; path = Japanese.lproj/np2.r; sourceTree = SOURCE_ROOT; };
 		9603DE7B06CFEAB500012F11 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9603DEA206CFEC9800012F11 /* Japanese */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -416,7 +419,6 @@
 		967C92AD055778CC00000103 /* maketext.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = maketext.c; sourceTree = "<group>"; };
 		967C92AF055778CC00000103 /* maketgrp.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = maketgrp.c; sourceTree = "<group>"; };
 		967C92B1055778CC00000103 /* palettes.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = palettes.c; sourceTree = "<group>"; };
-		967C92B3055778CC00000103 /* scrnbmp.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = scrnbmp.c; sourceTree = "<group>"; };
 		967C92B5055778CC00000103 /* scrndraw.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = scrndraw.c; sourceTree = "<group>"; };
 		967C92B7055778CC00000103 /* sdraw.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = sdraw.c; sourceTree = "<group>"; };
 		967C92BA055778CC00000103 /* vram.c */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.c; path = vram.c; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 				967C9285055778CC00000103 /* opngeng.c */,
 				967C9287055778CC00000103 /* pcm86c.c */,
 				967C9288055778CC00000103 /* pcm86g.c */,
+				59BAD93A1B91D61300ACF523 /* pcmmix.c */,
 				967C928A055778CC00000103 /* psggenc.c */,
 				967C928B055778CC00000103 /* psggeng.c */,
 				967C928D055778CC00000103 /* rhythmc.c */,
@@ -837,8 +840,8 @@
 				967C92AD055778CC00000103 /* maketext.c */,
 				967C92AF055778CC00000103 /* maketgrp.c */,
 				967C92B1055778CC00000103 /* palettes.c */,
-				967C92B3055778CC00000103 /* scrnbmp.c */,
 				967C92B5055778CC00000103 /* scrndraw.c */,
+				59BAD9381B91D5B400ACF523 /* scrnsave.c */,
 				967C92B7055778CC00000103 /* sdraw.c */,
 				967C92BA055778CC00000103 /* vram.c */,
 			);
@@ -1158,7 +1161,6 @@
 				5920DC6312FDD8EE00815277 /* maketext.c in Sources */,
 				5920DC6412FDD8EE00815277 /* maketgrp.c in Sources */,
 				5920DC6512FDD8EE00815277 /* palettes.c in Sources */,
-				5920DC6612FDD8EE00815277 /* scrnbmp.c in Sources */,
 				5920DC6712FDD8EE00815277 /* scrndraw.c in Sources */,
 				5920DC6812FDD8EE00815277 /* sdraw.c in Sources */,
 				5920DC6912FDD8EE00815277 /* vram.c in Sources */,
@@ -1212,6 +1214,8 @@
 				5920DC9912FDD8EE00815277 /* sxsicd.c in Sources */,
 				5920DC9A12FDD8EE00815277 /* sxsihdd.c in Sources */,
 				595AB9C11B5A7A9400435079 /* cpumem.c in Sources */,
+				59BAD9391B91D5B400ACF523 /* scrnsave.c in Sources */,
+				59BAD93B1B91D61300ACF523 /* pcmmix.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

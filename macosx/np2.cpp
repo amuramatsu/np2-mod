@@ -41,6 +41,7 @@
 #include	"keystat.h"
 #include	"subwind.h"
 #include	"macclnd.h"
+#include	"statsave.h"
 #include	<unistd.h>
 
 #define	NP2OPENING

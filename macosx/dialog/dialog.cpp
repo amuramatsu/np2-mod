@@ -8,7 +8,7 @@
 #include	"iocore.h"
 #include	"np2.h"
 #include	"macnewdisk.h"
-#include	"scrnbmp.h"
+#include	"scrnsave.h"
 #include	"dosio.h"
 #include	"menu.h"
 #include	"s98.h"
@@ -333,22 +333,18 @@ void dialog_font(void) {
 
 void dialog_writebmp(void) {
 
-	SCRNBMP	bmp;
+	SCRNSAVE bmp;
 	char	path[MAX_PATH];
 	FILEH	fh;
     FSSpec	fss;
 
-	bmp = scrnbmp();
+	bmp = scrnsave_create();
 	if (bmp) {
 		if (dialog_filewriteselect('BMP ', "Neko Project IIx ScreenShot.bmp", &fss, hWndMain)) {
-            fsspec2path(&fss, path, MAX_PATH);
-			fh = file_create(path);
-			if (fh != FILEH_INVALID) {
-				file_write(fh, bmp->ptr, bmp->size);
-				file_close(fh);
-			}
+			fsspec2path(&fss, path, MAX_PATH);
+			scrnsave_writebmp(bmp, path, SCRNSAVE_AUTO);
 		}
-		_MFREE(bmp);
+		scrnsave_destroy(bmp);
 	}
 }
 

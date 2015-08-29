@@ -1,7 +1,5 @@
 
-#if defined(X11) && (defined(i386) || defined(__i386__))
-#define	INHIBIT_WORDP(m)	((m) >= (I286_MEMWRITEMAX - 1))
-#elif (defined(ARM) || defined(X11)) && defined(BYTESEX_LITTLE)
+#if (defined(ARM) || defined(X11)) && defined(BYTESEX_LITTLE)
 #define	INHIBIT_WORDP(m)	(((m) & 1) || ((m) >= I286_MEMWRITEMAX))
 #else
 #define	INHIBIT_WORDP(m)	(1)

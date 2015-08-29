@@ -263,12 +263,11 @@ soundmng_create(UINT rate, UINT bufmsec)
 		}
 	}
 
+	snddrv_setup();
+
 	samples = (rate * bufmsec) / 1000 / 2;
 	samples = calc_blocksize(samples);
 	opna_frame = samples * 2 * sizeof(SINT16);
-
-	buffer_init();
-	snddrv_setup();
 
 	if ((*snddrv.drvinit)(rate, samples) != SUCCESS) {
 		audio_fd = -1;
@@ -927,7 +926,7 @@ sdlaudio_init(UINT rate, UINT samples)
 	fmt.channels = 2;
 	fmt.samples = samples;
 	fmt.callback = sdlaudio_callback;
-	fmt.userdata = NULL;
+	fmt.userdata = UINT32_TO_PTR(samples * 2 * sizeof(SINT16));
 
 	rv = SDL_InitSubSystem(SDL_INIT_AUDIO);
 	if (rv < 0) {

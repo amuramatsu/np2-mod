@@ -5,6 +5,15 @@
 
 #include "taskmng.h"
 
+#ifdef HAVE_SYS_TIME_H
+#include <sys/time.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#include <sys/types.h>
+#endif
+#ifdef HAVE_SYS_UNISTD_H
+#include <unistd.h>
+#endif
 
 void
 taskmng_initialize(void)
@@ -18,11 +27,20 @@ taskmng_sleep(UINT32 tick)
 {
 	UINT32 base;
 	UINT32 now;
+	UINT32 msec;
+	struct timeval tv;
+	int ret;
 
 	base = GETTICK();
 	while (taskmng_isavail() && (((now = GETTICK()) - base) < tick)) {
 		toolkit_event_process();
-		usleep((tick - (now - base) / 2) * 1000);
+		now = GETTICK();
+		msec = (tick - (now - base) / 2);
+                tv.tv_usec = (msec % 1000) * 1000;
+                tv.tv_sec = msec / 1000;
+		do {
+			ret = select(1, NULL, NULL, NULL, &tv);
+		} while ((ret == -1) && errno == EINTR);
 	}
 	return taskmng_isavail();
 }

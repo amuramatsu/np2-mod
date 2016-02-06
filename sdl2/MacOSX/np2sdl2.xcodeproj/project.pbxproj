@@ -248,7 +248,7 @@
 		BAF84EA3195AA38300183062 /* midiout.c in Sources */ = {isa = PBXBuildFile; fileRef = BAF84E7E195AA38300183062 /* midiout.c */; };
 		BAF84EA4195AA38300183062 /* midtable.c in Sources */ = {isa = PBXBuildFile; fileRef = BAF84E80195AA38300183062 /* midtable.c */; };
 		BAF84EA5195AA38300183062 /* midvoice.c in Sources */ = {isa = PBXBuildFile; fileRef = BAF84E82195AA38300183062 /* midvoice.c */; };
-		BAF84EA7195AA40E00183062 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF84EA6195AA40E00183062 /* libz.1.2.5.dylib */; };
+		BAF84EA7195AA40E00183062 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF84EA6195AA40E00183062 /* libz.1.dylib */; };
 		BAF84EAB195AAAD900183062 /* np2.icns in Resources */ = {isa = PBXBuildFile; fileRef = BAF84EAA195AAAD900183062 /* np2.icns */; };
 /* End PBXBuildFile section */
 
@@ -314,7 +314,6 @@
 		BAF84B1E195AA04F00183062 /* np2sdl2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "np2sdl2-Info.plist"; sourceTree = "<group>"; };
 		BAF84B20195AA04F00183062 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BAF84B26195AA04F00183062 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		BAF84B35195AA04F00183062 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		BAF84B4C195AA10400183062 /* bios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bios.c; sourceTree = "<group>"; };
 		BAF84B4D195AA10400183062 /* bios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bios.h; sourceTree = "<group>"; };
 		BAF84B4E195AA10400183062 /* bios09.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bios09.c; sourceTree = "<group>"; };
@@ -653,7 +652,7 @@
 		BAF84D4D195AA10500183062 /* sdrawq16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sdrawq16.c; sourceTree = "<group>"; };
 		BAF84D4E195AA10500183062 /* vram.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vram.c; sourceTree = "<group>"; };
 		BAF84D4F195AA10500183062 /* vram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vram.h; sourceTree = "<group>"; };
-		BAF84E4A195AA35E00183062 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		BAF84E4A195AA35E00183062 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = /Library/Frameworks/SDL2.framework; sourceTree = "<absolute>"; };
 		BAF84E4D195AA38300183062 /* adpcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = adpcm.h; sourceTree = "<group>"; };
 		BAF84E4E195AA38300183062 /* adpcmc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adpcmc.c; sourceTree = "<group>"; };
 		BAF84E4F195AA38300183062 /* adpcmg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adpcmg.c; sourceTree = "<group>"; };
@@ -706,7 +705,7 @@
 		BAF84E82195AA38300183062 /* midvoice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = midvoice.c; sourceTree = "<group>"; };
 		BAF84E83195AA38300183062 /* midvoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = midvoice.h; sourceTree = "<group>"; };
 		BAF84E84195AA38300183062 /* vermouth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vermouth.h; sourceTree = "<group>"; };
-		BAF84EA6195AA40E00183062 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		BAF84EA6195AA40E00183062 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = /usr/lib/libz.1.dylib; sourceTree = "<absolute>"; };
 		BAF84EAA195AAAD900183062 /* np2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = np2.icns; sourceTree = "<group>"; };
 		BAFFDA261B5901D500C5DE2E /* opna.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opna.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -716,7 +715,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAF84EA7195AA40E00183062 /* libz.1.2.5.dylib in Frameworks */,
+				BAF84EA7195AA40E00183062 /* libz.1.dylib in Frameworks */,
 				BAF84B17195AA04F00183062 /* Cocoa.framework in Frameworks */,
 				BAF84E4B195AA35E00183062 /* SDL2.framework in Frameworks */,
 			);
@@ -817,10 +816,9 @@
 			isa = PBXGroup;
 			children = (
 				BACA730B195ACE5F00784174 /* IOKit.framework */,
-				BAF84EA6195AA40E00183062 /* libz.1.2.5.dylib */,
+				BAF84EA6195AA40E00183062 /* libz.1.dylib */,
 				BAF84E4A195AA35E00183062 /* SDL2.framework */,
 				BAF84B16195AA04F00183062 /* Cocoa.framework */,
-				BAF84B35195AA04F00183062 /* XCTest.framework */,
 				BAF84B18195AA04F00183062 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -1823,6 +1821,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
@@ -1857,6 +1856,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);

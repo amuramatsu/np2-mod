@@ -525,20 +525,6 @@ SOURCE=..\I386C\ia32\debug.c
 
 SOURCE=..\I386C\ia32\disasm.c
 
-!IF  "$(CFG)" == "np21 - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "np21 - Win32 Release NT"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "np21 - Win32 Trace"
-
-!ELSEIF  "$(CFG)" == "np21 - Win32 Trap"
-
-!ELSEIF  "$(CFG)" == "np21 - Win32 Debug"
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -1320,43 +1306,83 @@ SOURCE=.\debuguty\viewsnd.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\DIALOG\D_ABOUT.CPP
+SOURCE=.\dialog\c_combodata.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\DIALOG\D_BMP.CPP
+SOURCE=.\dialog\c_combodata.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\DIALOG\D_CLND.CPP
+SOURCE=.\dialog\c_dipsw.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\DIALOG\D_CONFIG.CPP
+SOURCE=.\dialog\c_dipsw.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\DIALOG\D_DISK.CPP
+SOURCE=.\dialog\c_midi.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\DIALOG\D_MPU98.CPP
+SOURCE=.\dialog\c_midi.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\DIALOG\D_SCREEN.CPP
+SOURCE=.\dialog\c_slidervalue.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\DIALOG\D_SERIAL.CPP
+SOURCE=.\dialog\c_slidervalue.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\DIALOG\D_SOUND.CPP
+SOURCE=.\dialog\d_about.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\DIALOG\DIALOGS.CPP
+SOURCE=.\dialog\d_bmp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\d_clnd.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\d_config.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\d_disk.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\d_font.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\d_mpu98.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\d_screen.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\d_serial.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\d_sound.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\d_soundlog.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\dialog\dialog.h
 # End Source File
 # Begin Source File
 
@@ -1480,6 +1506,14 @@ SOURCE=.\ext\mt32snd.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=.\misc\DlgProc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\misc\DlgProc.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\misc\extrom.cpp
 # End Source File
 # Begin Source File
@@ -1489,6 +1523,14 @@ SOURCE=.\misc\extrom.h
 # Begin Source File
 
 SOURCE=.\misc\guard.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\misc\PropProc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\misc\PropProc.h
 # End Source File
 # Begin Source File
 
@@ -1717,6 +1759,14 @@ SOURCE=.\NP2ARG.CPP
 # Begin Source File
 
 SOURCE=.\OEMTEXT.CPP
+# End Source File
+# Begin Source File
+
+SOURCE=.\recvideo.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\recvideo.h
 # End Source File
 # Begin Source File
 

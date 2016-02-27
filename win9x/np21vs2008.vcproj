@@ -58,13 +58,14 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\;.\x86;.\dialog;..\;..\common;..\i386c;..\i386c\ia32;..\i386c\ia32\instructions;..\i386c\ia32\instructions\fpu;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;SUPPORT_PC9821"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;SUPPORT_PC9821"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
+				DisableSpecificWarnings="4819"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -139,13 +140,14 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\;.\x64;.\dialog;..\;..\common;..\i386c;..\i386c\ia32;..\i386c\ia32\instructions;..\i386c\ia32\instructions\fpu;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;SUPPORT_PC9821"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;SUPPORT_PC9821"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4819"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -222,12 +224,13 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories=".\;.\x86;.\dialog;..\;..\common;..\i386c;..\i386c\ia32;..\i386c\ia32\instructions;..\i386c\ia32\instructions\fpu;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;SUPPORT_PC9821"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;SUPPORT_PC9821"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4819"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -306,12 +309,13 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories=".\;.\x64;.\dialog;..\;..\common;..\i386c;..\i386c\ia32;..\i386c\ia32\instructions;..\i386c\ia32\instructions\fpu;..\mem;..\io;..\cbus;..\vram;..\sound;..\generic;..\zlib"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;SUPPORT_PC9821"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;SUPPORT_PC9821"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4819"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1380,6 +1384,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\recvideo.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\scrnmng.cpp"
 					>
 				</File>
@@ -1447,6 +1455,22 @@
 					Name="dialog"
 					>
 					<File
+						RelativePath=".\dialog\c_combodata.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\dialog\c_dipsw.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\dialog\c_midi.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\dialog\c_slidervalue.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\dialog\d_about.cpp"
 						>
 					</File>
@@ -1467,6 +1491,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\dialog\d_font.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\dialog\d_mpu98.cpp"
 						>
 					</File>
@@ -1483,7 +1511,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\dialog\dialogs.cpp"
+						RelativePath=".\dialog\d_soundlog.cpp"
 						>
 					</File>
 					<File
@@ -1547,7 +1575,15 @@
 					Name="misc"
 					>
 					<File
+						RelativePath=".\misc\DlgProc.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\misc\extrom.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\misc\PropProc.cpp"
 						>
 					</File>
 					<File
@@ -2594,6 +2630,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\recvideo.h"
+					>
+				</File>
+				<File
 					RelativePath=".\resource.h"
 					>
 				</File>
@@ -2665,11 +2705,23 @@
 					Name="dialog"
 					>
 					<File
-						RelativePath=".\dialog\dialog.h"
+						RelativePath=".\dialog\c_combodata.h"
 						>
 					</File>
 					<File
-						RelativePath=".\dialog\dialogs.h"
+						RelativePath=".\dialog\c_dipsw.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dialog\c_midi.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dialog\c_slidervalue.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dialog\dialog.h"
 						>
 					</File>
 					<File
@@ -2757,11 +2809,19 @@
 					Name="misc"
 					>
 					<File
+						RelativePath=".\misc\DlgProc.h"
+						>
+					</File>
+					<File
 						RelativePath=".\misc\extrom.h"
 						>
 					</File>
 					<File
 						RelativePath=".\misc\guard.h"
+						>
+					</File>
+					<File
+						RelativePath=".\misc\PropProc.h"
 						>
 					</File>
 					<File

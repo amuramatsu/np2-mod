@@ -80,7 +80,6 @@
 #include <unistd.h>
 
 #define	X11
-//#define	OSLANG_EUC
 #define	OSLANG_UTF8
 #define	OSLINEBREAK_LF
 
@@ -100,6 +99,8 @@ typedef	guint32		UINT32;
 typedef	guint64		UINT64;
 
 typedef	gboolean	BOOL;
+
+#define	INTPTR		gintptr
 
 #define PTR_TO_UINT32(p)	((UINT32)GPOINTER_TO_UINT(p))
 #define UINT32_TO_PTR(v)	GUINT_TO_POINTER((UINT32)(v))
@@ -229,12 +230,8 @@ G_END_DECLS
 #endif
 #endif
 
-#if defined(OSLANG_EUC)
 #define	SUPPORT_EUC
-#endif
-#if defined(OSLANG_UTF8)
 #define	SUPPORT_UTF8
-#endif
 
 #undef	SUPPORT_8BPP
 #define	SUPPORT_16BPP

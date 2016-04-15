@@ -22,6 +22,10 @@
 #include "dosio.h"
 #include "misc\tstring.h"
 #include "commng.h"
+#include "commng\cmmidiin32.h"
+#if defined(SUPPORT_VSTi)
+#include "commng\vsthost\vsteditwnd.h"
+#endif	// defined(SUPPORT_VSTi)
 #include "joymng.h"
 #include "mousemng.h"
 #include "scrnmng.h"
@@ -31,8 +35,8 @@
 #include "ini.h"
 #include "menu.h"
 #include "winloc.h"
-#include "np2class.h"
-#include "dialog.h"
+#include "dialog\np2class.h"
+#include "dialog\dialog.h"
 #include "cpucore.h"
 #include "pccore.h"
 #include "statsave.h"
@@ -95,7 +99,14 @@ static	TCHAR		szClassName[] = _T("NP2-MainWindow");
 						0,
 #endif
 						0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-						FSCRNMOD_SAMEBPP | FSCRNMOD_SAMERES | FSCRNMOD_ASPECTFIX8};
+						FSCRNMOD_SAMEBPP | FSCRNMOD_SAMERES | FSCRNMOD_ASPECTFIX8,
+
+						CSoundMng::kDSound3, TEXT(""),
+
+#if defined(SUPPORT_VSTi)
+						TEXT("%ProgramFiles%\\Roland\\Sound Canvas VA\\SOUND Canvas VA.dll")
+#endif	// defined(SUPPORT_VSTi)
+					};
 
 		OEMCHAR		fddfolder[MAX_PATH];
 		OEMCHAR		hddfolder[MAX_PATH];
@@ -175,14 +186,14 @@ static void UnloadExternalResource()
 static void winuienter(void) {
 
 	winui_en = TRUE;
-	soundmng_disable(SNDPROC_MAIN);
+	CSoundMng::GetInstance()->Disable(SNDPROC_MAIN);
 	scrnmng_topwinui();
 }
 
 static void winuileave(void) {
 
 	scrnmng_clearwinui();
-	soundmng_enable(SNDPROC_MAIN);
+	CSoundMng::GetInstance()->Enable(SNDPROC_MAIN);
 	winui_en = FALSE;
 }
 
@@ -295,7 +306,7 @@ void np2active_renewal(void) {										// ver0.30
 
 	if (np2break & (~NP2BREAK_MAIN)) {
 		np2stopemulate = 2;
-		soundmng_disable(SNDPROC_MASTER);
+		CSoundMng::GetInstance()->Disable(SNDPROC_MASTER);
 	}
 	else if (np2break & NP2BREAK_MAIN) {
 		if (np2oscfg.background & 1) {
@@ -305,15 +316,15 @@ void np2active_renewal(void) {										// ver0.30
 			np2stopemulate = 0;
 		}
 		if (np2oscfg.background) {
-			soundmng_disable(SNDPROC_MASTER);
+			CSoundMng::GetInstance()->Disable(SNDPROC_MASTER);
 		}
 		else {
-			soundmng_enable(SNDPROC_MASTER);
+			CSoundMng::GetInstance()->Enable(SNDPROC_MASTER);
 		}
 	}
 	else {
 		np2stopemulate = 0;
-		soundmng_enable(SNDPROC_MASTER);
+		CSoundMng::GetInstance()->Enable(SNDPROC_MASTER);
 	}
 }
 
@@ -389,22 +400,36 @@ static int flagload(HWND hWnd, const OEMCHAR *ext, LPCTSTR title, BOOL force)
 }
 #endif
 
+/**
+ * サウンドデバイスの再オープン
+ * @param[in] hWnd ウィンドウ ハンドル
+ */
+static void OpenSoundDevice(HWND hWnd)
+{
+	CSoundMng* pSoundMng = CSoundMng::GetInstance();
+	if (pSoundMng->Open(static_cast<CSoundMng::DeviceType>(np2oscfg.cSoundDeviceType), np2oscfg.szSoundDeviceName, hWnd))
+	{
+		pSoundMng->LoadPCM(SOUND_PCMSEEK, TEXT("SEEKWAV"));
+		pSoundMng->LoadPCM(SOUND_PCMSEEK1, TEXT("SEEK1WAV"));
+		pSoundMng->SetPCMVolume(SOUND_PCMSEEK, np2cfg.MOTORVOL);
+		pSoundMng->SetPCMVolume(SOUND_PCMSEEK1, np2cfg.MOTORVOL);
+	}
+}
 
 // ---- proc
 
-static void np2popup(HWND hWnd, LPARAM lp) {
-
-	HMENU	mainmenu;
-	HMENU	hMenu;
-	POINT	pt;
-
-	mainmenu = (HMENU)GetWindowLongPtr(hWnd, NP2GWLP_HMENU);
-	if (mainmenu == NULL) {
+static void np2popup(HWND hWnd, LPARAM lp)
+{
+	HMENU hMainMenu = reinterpret_cast<HMENU>(GetWindowLongPtr(hWnd, NP2GWLP_HMENU));
+	if (hMainMenu == NULL)
+	{
 		return;
 	}
-	hMenu = CreatePopupMenu();
-	menu_addmenubar(hMenu, mainmenu);
+	HMENU hMenu = CreatePopupMenu();
+	InsertMenuPopup(hMenu, 0, TRUE, hMainMenu);
 	xmenu_update(hMenu);
+
+	POINT pt;
 	pt.x = LOWORD(lp);
 	pt.y = HIWORD(lp);
 	ClientToScreen(hWnd, &pt);
@@ -439,6 +464,11 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			}
 			if (b)
 			{
+				if (sys_updates & SYS_UPDATESNDDEV)
+				{
+					sys_updates &= ~SYS_UPDATESNDDEV;
+					OpenSoundDevice(hWnd);
+				}
 				pccore_cfgupdate();
 				pccore_reset();
 			}
@@ -529,7 +559,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			break;
 
 		case IDM_IDE0EJECT:
-			diskdrv_sethdd(0x00, NULL);
+			diskdrv_setsxsi(0x00, NULL);
 			break;
 
 		case IDM_IDE1OPEN:
@@ -539,7 +569,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			break;
 
 		case IDM_IDE1EJECT:
-			diskdrv_sethdd(0x01, NULL);
+			diskdrv_setsxsi(0x01, NULL);
 			break;
 
 #if defined(SUPPORT_IDEIO)
@@ -550,7 +580,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			break;
 
 		case IDM_IDE2EJECT:
-			diskdrv_sethdd(0x02, NULL);
+			diskdrv_setsxsi(0x02, NULL);
 			break;
 #endif
 
@@ -562,7 +592,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			break;
 
 		case IDM_SCSI0EJECT:
-			diskdrv_sethdd(0x20, NULL);
+			diskdrv_setsxsi(0x20, NULL);
 			break;
 
 		case IDM_SCSI1OPEN:
@@ -572,7 +602,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			break;
 
 		case IDM_SCSI1EJECT:
-			diskdrv_sethdd(0x21, NULL);
+			diskdrv_setsxsi(0x21, NULL);
 			break;
 
 		case IDM_SCSI2OPEN:
@@ -582,7 +612,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			break;
 
 		case IDM_SCSI2EJECT:
-			diskdrv_sethdd(0x22, NULL);
+			diskdrv_setsxsi(0x22, NULL);
 			break;
 
 		case IDM_SCSI3OPEN:
@@ -592,7 +622,7 @@ static void OnCommand(HWND hWnd, WPARAM wParam)
 			break;
 
 		case IDM_SCSI3EJECT:
-			diskdrv_sethdd(0x23, NULL);
+			diskdrv_setsxsi(0x23, NULL);
 			break;
 #endif
 
@@ -1226,7 +1256,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			break;
 
 		case WM_ENTERSIZEMOVE:
-			soundmng_disable(SNDPROC_MAIN);
+			CSoundMng::GetInstance()->Disable(SNDPROC_MAIN);
 			mousemng_disable(MOUSEPROC_WINUI);
 			winlocex_destroy(smwlex);
 			smwlex = np2_winlocexallwin(hWnd);
@@ -1249,7 +1279,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			winlocex_destroy(smwlex);
 			smwlex = NULL;
 			mousemng_enable(MOUSEPROC_WINUI);
-			soundmng_enable(SNDPROC_MAIN);
+			CSoundMng::GetInstance()->Enable(SNDPROC_MAIN);
 			break;
 
 		case WM_KEYDOWN:
@@ -1426,11 +1456,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			break;
 
 		case MM_MIM_DATA:
-			cmmidi_recvdata((HMIDIIN)wParam, (DWORD)lParam);
+			CComMidiIn32::RecvData(reinterpret_cast<HMIDIIN>(wParam), static_cast<UINT>(lParam));
 			break;
 
 		case MM_MIM_LONGDATA:
-			cmmidi_recvexcv((HMIDIIN)wParam, (MIDIHDR *)lParam);
+			CComMidiIn32::RecvExcv(reinterpret_cast<HMIDIIN>(wParam), reinterpret_cast<MIDIHDR*>(lParam));
 			break;
 
 		default:
@@ -1457,6 +1487,9 @@ static void ExecuteOneFrame(BOOL bDraw)
 #if defined(SUPPORT_DCLOCK)
 	DispClock::GetInstance()->Update();
 #endif
+#if defined(SUPPORT_VSTi)
+	CVstEditWnd::OnIdle();
+#endif	// defined(SUPPORT_VSTi)
 }
 
 static void framereset(UINT cnt) {
@@ -1504,6 +1537,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 	_MEM_INIT();
 	CWndProc::Initialize(hInstance);
 	CSubWndBase::Initialize(hInstance);
+#if defined(SUPPORT_VSTi)
+	CVstEditWnd::Initialize(hInstance);
+#endif	// defined(SUPPORT_VSTi)
 
 	GetModuleFileName(NULL, modulefile, NELEMENTS(modulefile));
 	dosio_init();
@@ -1601,7 +1637,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 
 	sysmenu_initialize(GetSystemMenu(hWnd, FALSE));
 
-	HMENU hMenu = GetMenu(hWnd);
+	HMENU hMenu = np2class_gethmenu(hWnd);
 	xmenu_initialize(hMenu);
 	xmenu_update(hMenu);
 	if (file_attr_c(np2help) == -1)								// ver0.30
@@ -1629,11 +1665,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 		}
 	}
 
-	if (soundmng_initialize() == SUCCESS) {
-		soundmng_pcmload(SOUND_PCMSEEK, TEXT("SEEKWAV"));
-		soundmng_pcmload(SOUND_PCMSEEK1, TEXT("SEEK1WAV"));
-		soundmng_pcmvolume(SOUND_PCMSEEK, np2cfg.MOTORVOL);
-		soundmng_pcmvolume(SOUND_PCMSEEK1, np2cfg.MOTORVOL);
+	CSoundMng::Initialize();
+	OpenSoundDevice(hWnd);
+
+	if (CSoundMng::GetInstance()->Open(static_cast<CSoundMng::DeviceType>(np2oscfg.cSoundDeviceType), np2oscfg.szSoundDeviceName, hWnd))
+	{
+		CSoundMng::GetInstance()->LoadPCM(SOUND_PCMSEEK, TEXT("SEEKWAV"));
+		CSoundMng::GetInstance()->LoadPCM(SOUND_PCMSEEK1, TEXT("SEEK1WAV"));
+		CSoundMng::GetInstance()->SetPCMVolume(SOUND_PCMSEEK, np2cfg.MOTORVOL);
+		CSoundMng::GetInstance()->SetPCMVolume(SOUND_PCMSEEK1, np2cfg.MOTORVOL);
 	}
 
 	if (np2oscfg.MOUSE_SW) {										// ver0.30
@@ -1672,7 +1712,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 			mousemng_disable(MOUSEPROC_WINUI);
 			S98_trash();
 			pccore_term();
-			soundmng_deinitialize();
+			CSoundMng::GetInstance()->Close();
+			CSoundMng::Deinitialize();
 			scrnmng_destroy();
 			UnloadExternalResource();
 			TRACETERM();
@@ -1804,7 +1845,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst,
 
 	pccore_term();
 
-	soundmng_deinitialize();
+	CSoundMng::GetInstance()->Close();
+	CSoundMng::Deinitialize();
 	scrnmng_destroy();
 	recvideo_close();
 

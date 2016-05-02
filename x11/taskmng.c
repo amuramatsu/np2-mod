@@ -36,6 +36,8 @@ taskmng_sleep(UINT32 tick)
 		toolkit_event_process();
 		now = GETTICK();
 		msec = (tick - (now - base) / 2);
+		if (msec >= 0x80000000) /* minus? */
+			break;
                 tv.tv_usec = (msec % 1000) * 1000;
                 tv.tv_sec = msec / 1000;
 		do {
